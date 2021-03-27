@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { BreathAnimation } from './animations';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -38,21 +39,78 @@ const GlobalStyle = createGlobalStyle`
 
   .main {
     flex: 1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .match-result {
+    width: 140%;
+    display: flex;
+    padding: 56px 0;
+
+    .choice {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+
+      p {
+        text-align: center;
+        color: #fafafa;
+        margin-bottom: 80px;
+        font-size: 24px;
+        text-transform: uppercase;
+      }
+
+      > div {
+        margin: 0 auto;
+        transform: scale(1.4);
+      }
+
+      &.mach-choice::before {
+        content: '';
+        background: #000;
+        width: 180px;
+        height: 180px;
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        margin-top: -100px;
+        margin-left: -90px;
+        border-radius: 100%;
+        opacity: 0.2;
+        animation: ${BreathAnimation} 2s infinite;
+      }
+    }
+
+    .match-winner {
+      position: relative;
+      width: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      div {
+        margin-top: -48px;
+      }
+
+      p {
+        font-size: 40px;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: #fafafa;
+        margin-bottom: 10px;
+      }
+    }
   }
 
   .rules {
     button {
-      background: transparent;
       position: fixed;
-      right: 24px;
-      bottom: 32px;
-      border-radius: 8px;
-      border: 2px solid hsl(218deg 20% 39%);
-      text-transform: uppercase;
-      color: #fff;
-      padding: 8px;
-      min-width: 120px;
-      cursor: pointer;
+      right: 40px;
+      bottom: 60px;
     }
   }
 `;
