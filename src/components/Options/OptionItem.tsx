@@ -5,16 +5,21 @@ import { OptionItemContainer } from './styles';
 
 interface OptionItemProps {
   option: Option;
+  disableSelect?: boolean;
 }
 
-export function OptionItem({ option }: OptionItemProps) {
+export function OptionItem({ option, disableSelect }: OptionItemProps) {
   const { handleUserChoice } = useContext(AppContext);
+
+  const handleClick = (option: Option) => {
+    if (!disableSelect) handleUserChoice(option);
+  };
 
   return (
     <OptionItemContainer>
       <div
         className={`option-icon ${option.icon}`}
-        onClick={() => handleUserChoice(option)}
+        onClick={() => handleClick(option)}
       >
         <div className="figure">
           <img src={`/assets/icon-${option.icon}.svg`} alt={option.icon} />

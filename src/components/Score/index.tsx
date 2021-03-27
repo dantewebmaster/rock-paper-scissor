@@ -1,11 +1,15 @@
 import React from 'react';
 import { ScoreContainer } from './styles';
 
-export default function Score() {
+interface ScoreProps {
+  value: number;
+}
+
+export default function Score({ value }: ScoreProps) {
   return (
     <ScoreContainer>
       <span>Score</span>
-      <strong>12</strong>
+      <strong>{value}</strong>
     </ScoreContainer>
   );
 }
