@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useEffect, useState } from 'react';
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import randomNumber from '../helpers/randomNumber';
 import { Option } from '../models/option.interface';
 
@@ -28,13 +34,24 @@ interface AppProviderProps {
 
 export const AppContext = createContext({} as AppContextData);
 
-// let countdownTimeout: NodeJS.Timeout;
-
 export function ContextProvider({ children }: AppProviderProps) {
   const [score, setScore] = useState(0);
   const [userChoice, setUserChoice] = useState<Option>();
   const [machChoice, setMachChoice] = useState<Option>();
   const [matchResult, setMatchResult] = useState<MatchResultsType>();
+
+  const persistScore = useCallback((newScore) => {
+    localStorage.setItem('score', JSON.stringify(newScore));
+  }, []);
+
+  useEffect(() => {
+    const savedScore = localStorage.getItem('score');
+
+    if (savedScore) {
+      const parsedScore = parseInt(savedScore);
+      setScore(parsedScore);
+    }
+  }, []);
 
   useEffect(() => {
     if (userChoice) {
@@ -46,7 +63,7 @@ export function ContextProvider({ children }: AppProviderProps) {
         if (machSelect) {
           handleMachChoice(machSelect);
         }
-      }, 2000);
+      }, 1500);
     }
   }, [userChoice]);
 
@@ -59,13 +76,20 @@ export function ContextProvider({ children }: AppProviderProps) {
         setMatchResult(MatchResultsEnum.TIE);
       } else if ((userMove - machMove + 3) % 3 === 1) {
         setMatchResult(MatchResultsEnum.WIN);
-        setScore((prevScore) => prevScore + 1);
+        setScore((prevScore) => {
+          persistScore(prevScore + 1);
+          return prevScore + 1;
+        });
       } else {
         setMatchResult(MatchResultsEnum.LOSE);
-        setScore((prevScore) => (prevScore > 0 ? prevScore - 1 : 0));
+        setScore((prevScore) => {
+          if (prevScore === 0) return 0;
+          persistScore(prevScore - 1);
+          return prevScore - 1;
+        });
       }
     }
-  }, [machChoice, userChoice]);
+  }, [machChoice, persistScore, userChoice]);
 
   function handleUserChoice(option: Option) {
     setUserChoice(option);
@@ -78,6 +102,7 @@ export function ContextProvider({ children }: AppProviderProps) {
   function handlePlayAgain() {
     setUserChoice(undefined);
     setMachChoice(undefined);
+    setMatchResult(undefined);
   }
 
   return (

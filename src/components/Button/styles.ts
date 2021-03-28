@@ -7,6 +7,7 @@ export const ButtonContainer = styled.button<ButtonProps>`
   border: 2px solid hsl(218deg 20% 39%);
   text-transform: uppercase;
   color: #fff;
+  font-weight: 700;
   padding: ${({ size }) => size === 'small' ? 8 : 16}px;
   min-width: ${({ size }) => size === 'small' ? 120 : 160}px;
   cursor: pointer;
