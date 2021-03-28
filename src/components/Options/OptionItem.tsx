@@ -5,10 +5,15 @@ import { OptionItemContainer } from './styles';
 
 interface OptionItemProps {
   option: Option;
+  isWinner?: boolean;
   disableSelect?: boolean;
 }
 
-export function OptionItem({ option, disableSelect }: OptionItemProps) {
+export function OptionItem({
+  option,
+  disableSelect,
+  isWinner,
+}: OptionItemProps) {
   const { handleUserChoice } = useContext(AppContext);
 
   const handleClick = (option: Option) => {
@@ -17,6 +22,7 @@ export function OptionItem({ option, disableSelect }: OptionItemProps) {
 
   return (
     <OptionItemContainer>
+      {isWinner && <span className="circles"></span>}
       <div
         className={`option-icon ${option.icon}`}
         onClick={() => handleClick(option)}

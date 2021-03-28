@@ -91,6 +91,7 @@ const GlobalStyle = createGlobalStyle`
       align-items: center;
       justify-content: center;
       flex-direction: column;
+      z-index: 10;
 
       div {
         margin-top: -48px;
@@ -112,6 +113,11 @@ const GlobalStyle = createGlobalStyle`
       right: 40px;
       bottom: 60px;
     }
+  }
+
+  .modal-rules-image {
+    display: block;
+    margin: 0 auto;
   }
 `;
 

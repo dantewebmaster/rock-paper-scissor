@@ -6,7 +6,7 @@ export const ScoreContainer = styled.div`
   align-items: center;
   justify-content:  center;
   background: hsl(0deg 0% 98%);
-  padding: 8px 32px;
+  padding: 8px 48px;
   border-radius: 8px;
 
   span {

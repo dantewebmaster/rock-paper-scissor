@@ -1,5 +1,7 @@
 import styled from 'styled-components';
-import { PulseAnimation } from '../../styles/animations';
+import { FadeAnimation, PulseAnimation } from '../../styles/animations';
+
+const circleSize = 146;
 
 export const OptionItemContainer = styled.div`
   width: 170px;
@@ -62,6 +64,43 @@ export const OptionItemContainer = styled.div`
       img {
         transition: all 0.3s ease-in-out;
       }
+    }
+  }
+
+  .circles {
+    background: #fff;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 100%;
+    width: ${circleSize}%;
+    height: ${circleSize}%;
+    transform: translate(-15%, -15%);
+    opacity: 0;
+    animation: 2s linear infinite ${FadeAnimation};
+
+    &:before, &:after {
+      background: #fff;
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 50%;
+      animation: 2s linear infinite ${FadeAnimation};
+    }
+
+    &:before {
+      opacity: 0.5;
+      width: ${circleSize - 15}%;
+      height: ${circleSize - 15}%;
+      transform: translate(-12%, -12%);
+    }
+
+    &:after {
+      opacity: 0.4;
+      width: ${circleSize + 22}%;
+      height: ${circleSize + 22}%;
+      transform: translate(-20%, -20%);
     }
   }
 `;

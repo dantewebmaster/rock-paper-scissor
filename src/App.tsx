@@ -1,13 +1,14 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AppContext } from './contexts/AppContext';
-// components
 import Score from './components/Score';
 import Button from './components/Button';
+import Modal from './components/Modal';
 import { OptionItem, OptionsList } from './components/Options';
-import Logo from './assets/logo.svg';
-// data
 import optionsData from './options.json';
 import { MatchResultsEnum } from './contexts/AppContext';
+
+import ImageRules from './assets/image-rules.svg';
+import Logo from './assets/logo.svg';
 
 export default function App() {
   const {
@@ -17,6 +18,11 @@ export default function App() {
     matchResult,
     handlePlayAgain,
   } = useContext(AppContext);
+
+  const [rulesModalOpen, setRulesModalOpen] = useState(false);
+
+  const computerWins = matchResult === MatchResultsEnum.LOSE;
+  const userWins = matchResult === MatchResultsEnum.WIN;
 
   return (
     <div className="container">
@@ -30,15 +36,19 @@ export default function App() {
           <div className="match-result">
             <div className="choice user-choice">
               <p>You picked</p>
-              <OptionItem option={userChoice} disableSelect />
+              <OptionItem
+                option={userChoice}
+                isWinner={userWins}
+                disableSelect
+              />
             </div>
 
             {userChoice && machChoice && (
               <div className="match-winner">
                 <div>
-                  {matchResult === MatchResultsEnum.LOSE ? (
+                  {computerWins ? (
                     <p>You Lose!</p>
-                  ) : matchResult === MatchResultsEnum.WIN ? (
+                  ) : userWins ? (
                     <p>You Win!</p>
                   ) : (
                     <p>It's a Tie!</p>
@@ -52,7 +62,13 @@ export default function App() {
 
             <div className="choice mach-choice">
               <p>The house picked</p>
-              {machChoice && <OptionItem option={machChoice} disableSelect />}
+              {machChoice && (
+                <OptionItem
+                  option={machChoice}
+                  isWinner={computerWins}
+                  disableSelect
+                />
+              )}
             </div>
           </div>
         ) : (
@@ -61,8 +77,16 @@ export default function App() {
       </main>
 
       <div className="rules">
-        <Button>Rules</Button>
+        <Button onClick={() => setRulesModalOpen(true)}>Rules</Button>
       </div>
+
+      <Modal
+        opened={rulesModalOpen}
+        title="Rules"
+        onClose={() => setRulesModalOpen(false)}
+      >
+        <img src={ImageRules} alt="rules" className="modal-rules-image" />
+      </Modal>
     </div>
   );
 }

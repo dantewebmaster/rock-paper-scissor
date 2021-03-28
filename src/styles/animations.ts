@@ -27,3 +27,21 @@ export const BreathAnimation = keyframes`
     transform: scale(0.8);
   }
 `;
+
+export const FadeAnimation = keyframes`
+  0% {
+    opacity: 0;
+  }
+
+  50%: {
+    opacity: 0.1;
+  }
+
+  75% {
+    opacity: 0.2;
+  }
+
+  100% {
+    opacity: 0;
+  }
+`;
