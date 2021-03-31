@@ -28,7 +28,7 @@ export function OptionItem({
       >
         {isWinner && <span className="circles"></span>}
         <div className="figure">
-          <img src={`/assets/icon-${option.icon}.svg`} alt={option.icon} />
+          <img src={`assets/icon-${option.icon}.svg`} alt={option.icon} />
         </div>
       </div>
     </OptionItemContainer>
