@@ -21,4 +21,16 @@ export const ScoreContainer = styled.div`
     color: hsl(243deg 10% 38%);
     line-height: 1;
   }
+
+  @media (max-width: 768px) {
+    padding: 8px 24px;
+
+    span {
+      font-size: 12px;
+    }
+
+    strong {
+      font-size: 40px;
+    }
+  }
 `

@@ -22,11 +22,11 @@ export function OptionItem({
 
   return (
     <OptionItemContainer>
-      {isWinner && <span className="circles"></span>}
       <div
         className={`option-icon ${option.icon}`}
         onClick={() => handleClick(option)}
       >
+        {isWinner && <span className="circles"></span>}
         <div className="figure">
           <img src={`/assets/icon-${option.icon}.svg`} alt={option.icon} />
         </div>

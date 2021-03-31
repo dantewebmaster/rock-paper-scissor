@@ -16,6 +16,7 @@ export const ModalContainer = styled.div<StyledModalProps>`
   justify-content: center;
   align-items: center;
   transition: all 0.3s ease-in-out;
+  padding: 8px;
   opacity: ${({ isOpened }) => isOpened ? 1 : 0};
   visibility: ${({ isOpened }) => isOpened ? 'visible' : 'hidden'};
 
@@ -59,5 +60,39 @@ export const ModalContainer = styled.div<StyledModalProps>`
     transform: translateY(${({ isOpened }) => isOpened ? 'none' : '25%'});
 
     transition: all 0.3s ease-in-out;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0;
+
+    .modal-header {
+      display: block;
+      margin-bottom: 16px;
+
+      .title {
+        text-align: center;
+      }
+
+      .close {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+
+    .modal-content {
+      height: 100%;
+      border-radius: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+
+      .modal-body {
+        overflow-x: auto;
+        margin-bottom: 32px;
+      }
+    }
   }
 `;

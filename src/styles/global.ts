@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
     background: hsl(214, 47%, 23%);
     background: radial-gradient(at top, hsl(214, 47%, 23%) 20%, hsl(237, 49%, 15%) 80%);
     font-family: 'Barlow Semi Condensed', sans-serif;
+    overflow-x: hidden;
   }
 
   .container {
@@ -23,7 +24,7 @@ const GlobalStyle = createGlobalStyle`
     width: 680px;
     margin: 0 auto;
     max-width: 100%;
-    height: 100%;
+    height: 90vh;
     flex-direction: column;
   }
 
@@ -37,11 +38,13 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
   }
 
-  .main {
+  .main-content {
     flex: 1;
     width: 100%;
     display: flex;
     justify-content: center;
+    display: flex;
+    align-items: center;
   }
 
   .match-result {
@@ -58,29 +61,40 @@ const GlobalStyle = createGlobalStyle`
       p {
         text-align: center;
         color: #fafafa;
-        margin-bottom: 80px;
+        margin-bottom: 58px;
         font-size: 24px;
         text-transform: uppercase;
+        z-index: 10;
       }
 
-      > div {
-        margin: 0 auto;
+      .main {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         transform: scale(1.4);
+        height: 100%;
       }
 
-      &.mach-choice::before {
-        content: '';
-        background: #000;
-        width: 180px;
-        height: 180px;
-        top: 50%;
-        left: 50%;
+      &.mach-choice .fake-loading {
         position: absolute;
-        margin-top: -100px;
-        margin-left: -90px;
-        border-radius: 100%;
-        opacity: 0.2;
-        animation: ${BreathAnimation} 2s infinite;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &::before {
+          content: '';
+          background: #000;
+          width: 130px;
+          height: 130px;
+          border-radius: 100%;
+          opacity: 0.2;
+          animation: ${BreathAnimation} 2s infinite;
+        }
       }
     }
 
@@ -91,10 +105,15 @@ const GlobalStyle = createGlobalStyle`
       align-items: center;
       justify-content: center;
       flex-direction: column;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
       z-index: 10;
 
       div {
-        margin-top: -48px;
+        margin-top: 48px;
+        text-align: center;
       }
 
       p {
@@ -108,16 +127,81 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .rules {
-    button {
-      position: fixed;
-      right: 40px;
-      bottom: 60px;
-    }
+    width: 100%;
+    padding: 0 40px;
+    display: flex;
+    justify-content: flex-end;
   }
 
   .modal-rules-image {
     display: block;
     margin: 0 auto;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  @media (max-width: 785px) {
+    .container {
+      padding: 24px;
+    }
+
+    .header {
+      height: 100px;
+      padding: 8px 16px;
+
+      img {
+        padding: 8px;
+      }
+    }
+
+    .match-result {
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      > div:nth-child(1) {
+        order: 1;
+      }
+
+      > div:nth-child(2) {
+        order: 3;
+        flex: 1
+      }
+
+      > div:nth-child(3) {
+        order: 2;
+      }
+
+      .choice {
+        flex-direction: column-reverse;
+
+        p {
+          margin-bottom: 0;
+          margin-top: 24px;
+          font-size: 14px;
+        }
+
+        .main {
+          align-items: center;
+          transform: scale(1);
+        }
+      }
+
+      .match-winner {
+        p {
+          font-size: 54px;
+        }
+
+        div {
+          margin-top: 80px;
+        }
+      }
+    }
+
+    .rules {
+      justify-content: center;
+    }
   }
 `;
 

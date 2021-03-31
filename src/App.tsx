@@ -25,56 +25,67 @@ export default function App() {
   const userWins = matchResult === MatchResultsEnum.WIN;
 
   return (
-    <div className="container">
-      <header className="header">
-        <img src={Logo} alt="Rock Paper Scissors" />
-        <Score value={score} />
-      </header>
+    <>
+      <div className="container">
+        <header className="header">
+          <img src={Logo} alt="Rock Paper Scissors" />
+          <Score value={score} />
+        </header>
 
-      <main className="main">
-        {userChoice ? (
-          <div className="match-result">
-            <div className="choice user-choice">
-              <p>You picked</p>
-              <OptionItem
-                option={userChoice}
-                isWinner={userWins}
-                disableSelect
-              />
-            </div>
-
-            {userChoice && machChoice && (
-              <div className="match-winner">
-                <div>
-                  {computerWins ? (
-                    <p>You Lose!</p>
-                  ) : userWins ? (
-                    <p>You Win!</p>
-                  ) : (
-                    <p>It's a Tie!</p>
-                  )}
-                  <Button size="large" onClick={handlePlayAgain}>
-                    Play Again
-                  </Button>
+        <main className="main-content">
+          {userChoice ? (
+            <div className="match-result">
+              <div className="choice user-choice">
+                <p>You picked</p>
+                <div className="main">
+                  <OptionItem
+                    option={userChoice}
+                    isWinner={userWins}
+                    disableSelect
+                  />
                 </div>
               </div>
-            )}
 
-            <div className="choice mach-choice">
-              <p>The house picked</p>
-              {machChoice && (
-                <OptionItem
-                  option={machChoice}
-                  isWinner={computerWins}
-                  disableSelect
-                />
-              )}
+              <div className="match-winner">
+                {userChoice && machChoice && (
+                  <div>
+                    {computerWins ? (
+                      <p>You Lose!</p>
+                    ) : userWins ? (
+                      <p>You Win!</p>
+                    ) : (
+                      <p>It's a Tie!</p>
+                    )}
+                    <Button
+                      size="large"
+                      variant="filled"
+                      onClick={handlePlayAgain}
+                    >
+                      Play Again
+                    </Button>
+                  </div>
+                )}
+              </div>
+
+              <div className="choice mach-choice">
+                <p>The house picked</p>
+                <div className="main">
+                  <span className="fake-loading"></span>
+                  {machChoice && (
+                    <OptionItem
+                      option={machChoice}
+                      isWinner={computerWins}
+                      disableSelect
+                    />
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
-        ) : (
-          <OptionsList options={optionsData} />
-        )}
-      </main>
+          ) : (
+            <OptionsList options={optionsData} />
+          )}
+        </main>
+      </div>
 
       <div className="rules">
         <Button onClick={() => setRulesModalOpen(true)}>Rules</Button>
@@ -87,6 +98,6 @@ export default function App() {
       >
         <img src={ImageRules} alt="rules" className="modal-rules-image" />
       </Modal>
-    </div>
+    </>
   );
 }

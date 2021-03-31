@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import { FadeAnimation, PulseAnimation } from '../../styles/animations';
 
-const circleSize = 146;
-
 export const OptionItemContainer = styled.div`
   width: 170px;
   height: 170px;
@@ -73,11 +71,13 @@ export const OptionItemContainer = styled.div`
     left: 0;
     top: 0;
     border-radius: 100%;
-    width: ${circleSize}%;
-    height: ${circleSize}%;
-    transform: translate(-15%, -15%);
+    width: 100%;
+    height: 100%;
+    cursor: default;
     opacity: 0;
+    transform: scale(1.5);
     animation: 2s linear infinite ${FadeAnimation};
+    z-index: -1;
 
     &:before, &:after {
       background: #fff;
@@ -86,21 +86,38 @@ export const OptionItemContainer = styled.div`
       left: 0;
       top: 0;
       border-radius: 50%;
+      width: 100%;
+      height: 100%;
       animation: 2s linear infinite ${FadeAnimation};
     }
 
     &:before {
       opacity: 0.5;
-      width: ${circleSize - 15}%;
-      height: ${circleSize - 15}%;
-      transform: translate(-12%, -12%);
+      transform: scale(1.4);
     }
 
     &:after {
       opacity: 0.4;
-      width: ${circleSize + 22}%;
-      height: ${circleSize + 22}%;
-      transform: translate(-20%, -20%);
+      transform: scale(1.9);
+    }
+  }
+
+  @media (max-width: 768px) {
+    width: 130px;
+    height: 130px;
+
+    .option-icon {
+      width: 130px;
+      height: 130px;
+
+      .figure {
+        width: 100px;
+        height: 100px;
+
+        img {
+          width: 40px;
+        }
+      }
     }
   }
 `;
@@ -128,5 +145,13 @@ export const OptionsContainer = styled.div`
       left: 50%;
       transform: translateX(-50%);
     }
+  }
+
+  @media (max-width: 768px) {
+    width: 320px;
+    height: 290px;
+    background-size: 210px;
+    background-position: center;
+    margin-top: 0;
   }
 `;
